@@ -43,7 +43,7 @@ public class OutputView {
                         .collect(Collectors.joining(DELIMITER, PREFIX, SUFFIX)))
                 .collect(Collectors.joining(System.lineSeparator()));
 
-        purchasedLotto.append(result);
+        purchasedLotto.append(result).append(System.lineSeparator());
 
         System.out.println(purchasedLotto);
     }

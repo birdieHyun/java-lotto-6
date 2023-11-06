@@ -3,6 +3,7 @@ package lotto.controller;
 import lotto.domain.Lotto;
 import lotto.domain.NumberGenerator;
 import lotto.domain.Purchase;
+import lotto.domain.WinningNumbers;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -25,12 +26,16 @@ public class LottoController {
         List<Lotto> lottos = new ArrayList<>();
         outputView.printPurchaseMessage();
         Purchase purchase = inputView.inputPurchase();
-
-        for (int i = 0; i < purchase.getLottosCount(); i++) {
+        int lottoCount = purchase.getLottosCount();
+        for (int i = 0; i < lottoCount; i++) {
 
             lottos.add(new Lotto(numberGenerator.generate()));
         }
 
-        outputView.printPurchasedLotto(purchase.getLottosCount(), lottos);
+        outputView.printPurchasedLotto(lottoCount, lottos);
+
+        outputView.printWinningNumberMessage();
+
+        WinningNumbers winningNumbers = inputView.inputWinningNumbers();
     }
 }
