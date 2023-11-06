@@ -10,6 +10,7 @@ public class LottoResultCalculator {
 
     private static final int DEFAULT_VALUE = 0;
     private static final double RATIO = 100.0;
+    private static final int LOTTO_PRICE = 1000;
     private final List<WinningStrategy> strategies;
 
     public LottoResultCalculator(List<WinningStrategy> strategies) {
@@ -32,13 +33,13 @@ public class LottoResultCalculator {
         return results;
     }
 
-    public double calculateProfit(Map<String, Integer> results, int money) {
+    public double calculateProfit(Map<String, Integer> results, int lottoCount) {
 
         double profit = strategies.stream()
                 .mapToDouble(strategy -> results.getOrDefault(strategy.getResultKey(), DEFAULT_VALUE) * strategy.getWinningMoney())
                 .sum();
 
-        double profitRate = (profit / money) * RATIO;
+        double profitRate = (profit / lottoCount * LOTTO_PRICE) * RATIO;
 
         profitRate = Math.round(profitRate * RATIO) / RATIO;
 

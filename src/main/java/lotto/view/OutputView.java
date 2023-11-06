@@ -73,4 +73,9 @@ public class OutputView {
 
         System.out.println(statistics);
     }
+
+    public void printError(String message) {
+
+        System.out.println(message);
+    }
 }
