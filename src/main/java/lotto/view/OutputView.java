@@ -43,7 +43,9 @@ public class OutputView {
                         .collect(Collectors.joining(DELIMITER, PREFIX, SUFFIX)))
                 .collect(Collectors.joining(System.lineSeparator()));
 
-        System.out.println(result);
+        purchasedLotto.append(result);
+
+        System.out.println(purchasedLotto);
     }
 
     public void printWinningNumberMessage() {
