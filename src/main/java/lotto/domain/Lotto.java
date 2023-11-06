@@ -19,7 +19,16 @@ public class Lotto {
         }
     }
 
-    // TODO: 추가 기능 구현
+    public long getMatchCount(Lotto winningNumbers) {
+        return numbers.stream()
+                .filter(winningNumbers.getNumbers()::contains)
+                .count();
+    }
+
+    public boolean matchBonusNumber(SingleLottoNumber bonusNumber) {
+        return numbers.contains(bonusNumber);
+    }
+
 
     public List<SingleLottoNumber> getNumbers() {
 
