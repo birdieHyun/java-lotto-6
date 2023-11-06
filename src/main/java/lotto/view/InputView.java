@@ -1,24 +1,33 @@
 package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import lotto.domain.Lotto;
 import lotto.domain.Purchase;
-import lotto.domain.WinningNumber;
-import lotto.domain.WinningNumbers;
+import lotto.domain.SingleLottoNumber;
+
+import java.util.Arrays;
 
 public class InputView {
+
+    private static final String DELIMITER = ",";
 
     public Purchase inputPurchase() {
 
         return new Purchase(Console.readLine());
     }
 
-    public WinningNumbers inputWinningNumbers() {
+    public Lotto inputWinningNumbers() {
 
-        return new WinningNumbers(Console.readLine());
+        String[] numbers = Console.readLine().split(DELIMITER);
+        // TODO : numbers 검증
+        return new Lotto(Arrays.stream(numbers)
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .toList());
     }
 
-    public WinningNumber inputBonusNumber() {
+    public SingleLottoNumber inputBonusNumber() {
 
-        return new WinningNumber(Console.readLine());
+        return new SingleLottoNumber(Console.readLine());
     }
 }

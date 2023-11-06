@@ -1,14 +1,14 @@
 package lotto.view;
 
-import lotto.Lotto;
+import lotto.domain.Lottos;
 
-import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OutputView {
 
     private static final String PURCHASE_MESSAGE = "구입금액을 입력해 주세요.";
-    private static final String PURCHASED_LOTTO = "개를 구입하셨습니다.";
+    private static final String PURCHASED_LOTTO = "개를 구매했습니다.";
     private static final String WINNING_NUMBER_MESSAGE = "당첨 번호를 입력해 주세요.";
     private static final String BONUS_NUMBER_MESSAGE = "보너스 번호를 입력해 주세요.";
     private static final String RESULT_MESSAGE = "당첨 통계";
@@ -30,20 +30,22 @@ public class OutputView {
         System.out.println(PURCHASE_MESSAGE);
     }
 
-    public void printPurchasedLotto(int lottoCount, List<Lotto> lottos) {
+    public void printPurchasedLotto(int lottoCount, Lottos lottos) {
         StringBuilder purchasedLotto = new StringBuilder();
 
         purchasedLotto.append(lottoCount)
                 .append(PURCHASED_LOTTO)
                 .append(System.lineSeparator());
 
-        String result = lottos.stream()
+        String result = lottos.getLottos().stream()
                 .map(lotto -> lotto.getNumbers().stream()
-                        .map(String::valueOf)
+                        .map(singleLottoNumber -> String.valueOf(singleLottoNumber.getValue()))
                         .collect(Collectors.joining(DELIMITER, PREFIX, SUFFIX)))
                 .collect(Collectors.joining(System.lineSeparator()));
 
-        System.out.println(result);
+        purchasedLotto.append(result).append(System.lineSeparator());
+
+        System.out.println(purchasedLotto);
     }
 
     public void printWinningNumberMessage() {
@@ -56,18 +58,17 @@ public class OutputView {
         System.out.println(BONUS_NUMBER_MESSAGE);
     }
 
-    public void printResultStatistics(int threeMatch, int fourMatch, int fiveMatch,
-                                      int fiveMatchWithBonus, int sixMatch, double profitRate) {
+    public void printResultStatistics(Map<String, Integer> results, double profitRate) {
 
         StringBuilder statistics = new StringBuilder();
 
         statistics.append(RESULT_MESSAGE).append(System.lineSeparator())
                 .append(SEPARATOR).append(System.lineSeparator())
-                .append(THREE_MATCH).append(threeMatch).append(COUNT).append(System.lineSeparator())
-                .append(FOUR_MATCH).append(fourMatch).append(COUNT).append(System.lineSeparator())
-                .append(FIVE_MATCH).append(fiveMatch).append(COUNT).append(System.lineSeparator())
-                .append(FIVE_MATCH_WITH_BONUS).append(fiveMatchWithBonus).append(COUNT).append(System.lineSeparator())
-                .append(SIX_MATCH).append(sixMatch).append(COUNT).append(System.lineSeparator())
+                .append(THREE_MATCH).append(results.get("threeMatch")).append(COUNT).append(System.lineSeparator())
+                .append(FOUR_MATCH).append(results.get("fourMatch")).append(COUNT).append(System.lineSeparator())
+                .append(FIVE_MATCH).append(results.get("fiveMatch")).append(COUNT).append(System.lineSeparator())
+                .append(FIVE_MATCH_WITH_BONUS).append(results.get("fiveMatchWithBonus")).append(COUNT).append(System.lineSeparator())
+                .append(SIX_MATCH).append(results.get("sixMatch")).append(COUNT).append(System.lineSeparator())
                 .append(PROFIT_RATE).append(profitRate).append(PERCENT);
 
         System.out.println(statistics);
