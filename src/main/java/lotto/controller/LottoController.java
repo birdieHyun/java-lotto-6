@@ -28,13 +28,28 @@ public class LottoController {
 
         Lotto winningNumbers = getLotto();
 
-        outputView.printBonusNumberMessage();
-        SingleLottoNumber bonusNumber = inputView.inputBonusNumber();
+        SingleLottoNumber bonusNumber = getBonusNumber();
 
         Map<String, Integer> stringIntegerMap = lottoResultCalculator.calculateResults(lottos.getLottos(), winningNumbers, bonusNumber);
         double profit = lottoResultCalculator.calculateProfit(stringIntegerMap, lottoCount * 1000);
 
         outputView.printResultStatistics(stringIntegerMap, profit);
+    }
+
+    private SingleLottoNumber getBonusNumber() {
+        boolean isValid = false;
+        SingleLottoNumber bonusNumber = null;
+
+        while (!isValid) {
+            try{
+                outputView.printBonusNumberMessage();
+                bonusNumber = inputView.inputBonusNumber();
+                isValid = true;
+            }catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+        return bonusNumber;
     }
 
     private Lotto getLotto() {

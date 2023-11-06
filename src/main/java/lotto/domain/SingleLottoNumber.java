@@ -10,15 +10,33 @@ public class SingleLottoNumber {
     private final int value;
 
     public SingleLottoNumber(int value) {
-        if (value < MIN_RANGE || value > MAX_RANGE) {
-            throw new IllegalArgumentException(ERROR_MESSAGE);
-        }
+        validateLottoRange(value);
         this.value = value;
     }
 
     public SingleLottoNumber(String value) {
 
-        this.value = Integer.parseInt(value);
+        int number = 0;
+        number = validateIsNumber(value);
+        validateLottoRange(number);
+        this.value = number;
+    }
+
+
+    private static void validateLottoRange(int value) {
+        if (value < MIN_RANGE || value > MAX_RANGE) {
+            throw new IllegalArgumentException(ERROR_MESSAGE);
+        }
+    }
+
+    private static int validateIsNumber(String value) {
+        int number;
+        try{
+            number = Integer.parseInt(value);
+        }catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ERROR_MESSAGE);
+        }
+        return number;
     }
 
     public int getValue() {
