@@ -1,9 +1,6 @@
 package lotto.controller;
 
-import lotto.domain.Lotto;
-import lotto.domain.NumberGenerator;
-import lotto.domain.Purchase;
-import lotto.domain.WinningNumbers;
+import lotto.domain.*;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -37,5 +34,10 @@ public class LottoController {
         outputView.printWinningNumberMessage();
 
         WinningNumbers winningNumbers = inputView.inputWinningNumbers();
+
+        outputView.printBonusNumberMessage();
+
+        WinningNumber bonusNumber = inputView.inputBonusNumber();
+
     }
 }
