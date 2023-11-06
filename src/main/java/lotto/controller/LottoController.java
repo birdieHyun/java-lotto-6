@@ -31,7 +31,7 @@ public class LottoController {
         SingleLottoNumber bonusNumber = getBonusNumber(winningNumbers);
 
         Map<String, Integer> stringIntegerMap = lottoResultCalculator.calculateResults(lottos.getLottos(), winningNumbers, bonusNumber);
-        double profit = lottoResultCalculator.calculateProfit(stringIntegerMap, lottoCount * 1000);
+        double profit = lottoResultCalculator.calculateProfit(stringIntegerMap, lottoCount);
 
         outputView.printResultStatistics(stringIntegerMap, profit);
     }
