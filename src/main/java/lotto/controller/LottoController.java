@@ -20,7 +20,9 @@ public class LottoController {
     }
 
     public void startGame() {
+
         List<Lotto> lottos = new ArrayList<>();
+
         outputView.printPurchaseMessage();
         Purchase purchase = inputView.inputPurchase();
         int lottoCount = purchase.getLottosCount();
@@ -33,11 +35,12 @@ public class LottoController {
 
         outputView.printWinningNumberMessage();
 
-        WinningNumbers winningNumbers = inputView.inputWinningNumbers();
+        Lotto winningNumbers = inputView.inputWinningNumbers();
 
         outputView.printBonusNumberMessage();
 
-        WinningNumber bonusNumber = inputView.inputBonusNumber();
+        int bonusNumber = inputView.inputBonusNumber();
+
 
     }
 }
