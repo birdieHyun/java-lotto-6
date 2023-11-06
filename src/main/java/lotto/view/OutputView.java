@@ -1,8 +1,7 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
+import lotto.domain.Lottos;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class OutputView {
@@ -30,14 +29,14 @@ public class OutputView {
         System.out.println(PURCHASE_MESSAGE);
     }
 
-    public void printPurchasedLotto(int lottoCount, List<Lotto> lottos) {
+    public void printPurchasedLotto(int lottoCount, Lottos lottos) {
         StringBuilder purchasedLotto = new StringBuilder();
 
         purchasedLotto.append(lottoCount)
                 .append(PURCHASED_LOTTO)
                 .append(System.lineSeparator());
 
-        String result = lottos.stream()
+        String result = lottos.getLottos().stream()
                 .map(lotto -> lotto.getNumbers().stream()
                         .map(singleLottoNumber -> String.valueOf(singleLottoNumber.getValue()))
                         .collect(Collectors.joining(DELIMITER, PREFIX, SUFFIX)))

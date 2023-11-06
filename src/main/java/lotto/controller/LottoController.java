@@ -4,9 +4,6 @@ import lotto.domain.*;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LottoController {
 
     private final InputView inputView;
@@ -21,26 +18,29 @@ public class LottoController {
 
     public void startGame() {
 
-        List<Lotto> lottos = new ArrayList<>();
+        int lottoCount = getLottoCount();
 
-        outputView.printPurchaseMessage();
-        Purchase purchase = inputView.inputPurchase();
-        int lottoCount = purchase.getLottosCount();
-        for (int i = 0; i < lottoCount; i++) {
-
-            lottos.add(new Lotto(numberGenerator.generate()));
-        }
-
-        outputView.printPurchasedLotto(lottoCount, lottos);
+        Lottos lottos = generateLottos(lottoCount);
 
         outputView.printWinningNumberMessage();
-
         Lotto winningNumbers = inputView.inputWinningNumbers();
 
         outputView.printBonusNumberMessage();
-
         SingleLottoNumber bonusNumber = inputView.inputBonusNumber();
 
+    }
 
+    private Lottos generateLottos(int lottoCount) {
+        Lottos lottos = Lottos.generate(lottoCount, numberGenerator);
+        outputView.printPurchasedLotto(lottoCount, lottos);
+
+        return lottos;
+    }
+
+    private int getLottoCount() {
+        outputView.printPurchaseMessage();
+        Purchase purchase = inputView.inputPurchase();
+        int lottoCount = purchase.getLottosCount();
+        return lottoCount;
     }
 }
