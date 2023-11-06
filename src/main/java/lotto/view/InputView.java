@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 import lotto.domain.Lotto;
 import lotto.domain.Purchase;
 import lotto.domain.SingleLottoNumber;
+import lotto.validator.LottoValidator;
 
 import java.util.Arrays;
 
@@ -19,9 +20,9 @@ public class InputView {
     public Lotto inputWinningNumbers() {
 
         String[] numbers = Console.readLine().split(DELIMITER);
-        // TODO : numbers 검증
+        LottoValidator.isValidLottoNumber(numbers);
+
         return new Lotto(Arrays.stream(numbers)
-                .map(String::trim)
                 .map(Integer::parseInt)
                 .toList());
     }

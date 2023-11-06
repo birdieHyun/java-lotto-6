@@ -26,8 +26,7 @@ public class LottoController {
 
         Lottos lottos = generateLottos(lottoCount);
 
-        outputView.printWinningNumberMessage();
-        Lotto winningNumbers = inputView.inputWinningNumbers();
+        Lotto winningNumbers = getLotto();
 
         outputView.printBonusNumberMessage();
         SingleLottoNumber bonusNumber = inputView.inputBonusNumber();
@@ -38,6 +37,23 @@ public class LottoController {
         outputView.printResultStatistics(stringIntegerMap, profit);
     }
 
+    private Lotto getLotto() {
+        Lotto winningNumbers = null;
+        boolean isValid = false;
+
+        while (!isValid) {
+            try {
+                outputView.printWinningNumberMessage();
+                winningNumbers = inputView.inputWinningNumbers();
+                isValid = true;
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+
+        }
+        return winningNumbers;
+    }
+
     private Lottos generateLottos(int lottoCount) {
         Lottos lottos = Lottos.generate(lottoCount, numberGenerator);
         outputView.printPurchasedLotto(lottoCount, lottos);
@@ -46,9 +62,21 @@ public class LottoController {
     }
 
     private int getLottoCount() {
-        outputView.printPurchaseMessage();
-        Purchase purchase = inputView.inputPurchase();
-        int lottoCount = purchase.getLottosCount();
-        return lottoCount;
+
+        boolean isValid = false;
+        Purchase purchase = null;
+
+        while (!isValid) {
+            try {
+                outputView.printPurchaseMessage();
+                purchase = inputView.inputPurchase();
+                isValid = true;
+            }catch (IllegalArgumentException e) {
+                outputView.printError(e.getMessage());
+            }
+        }
+
+        return purchase.getLottosCount();
     }
+
 }
