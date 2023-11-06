@@ -3,11 +3,14 @@ package lotto.domain;
 import java.util.List;
 
 public class Lotto {
-    private final List<Integer> numbers;
+    private final List<SingleLottoNumber> numbers;
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+
+        this.numbers = numbers.stream()
+                .map(SingleLottoNumber::new)
+                .toList();
     }
 
     private void validate(List<Integer> numbers) {
@@ -18,7 +21,8 @@ public class Lotto {
 
     // TODO: 추가 기능 구현
 
-    public List<Integer> getNumbers() {
+    public List<SingleLottoNumber> getNumbers() {
+
         return numbers;
     }
 }

@@ -39,7 +39,7 @@ public class LottoController {
 
         outputView.printBonusNumberMessage();
 
-        int bonusNumber = inputView.inputBonusNumber();
+        SingleLottoNumber bonusNumber = inputView.inputBonusNumber();
 
 
     }

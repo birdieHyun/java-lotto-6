@@ -39,7 +39,7 @@ public class OutputView {
 
         String result = lottos.stream()
                 .map(lotto -> lotto.getNumbers().stream()
-                        .map(String::valueOf)
+                        .map(singleLottoNumber -> String.valueOf(singleLottoNumber.getValue()))
                         .collect(Collectors.joining(DELIMITER, PREFIX, SUFFIX)))
                 .collect(Collectors.joining(System.lineSeparator()));
 
