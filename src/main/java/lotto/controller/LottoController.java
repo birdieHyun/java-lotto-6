@@ -26,7 +26,7 @@ public class LottoController {
 
         Lottos lottos = generateLottos(lottoCount);
 
-        Lotto winningNumbers = getLotto();
+        Lotto winningNumbers = getWinningLotto();
 
         SingleLottoNumber bonusNumber = getBonusNumber();
 
@@ -52,7 +52,7 @@ public class LottoController {
         return bonusNumber;
     }
 
-    private Lotto getLotto() {
+    private Lotto getWinningLotto() {
         Lotto winningNumbers = null;
         boolean isValid = false;
 
