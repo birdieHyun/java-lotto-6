@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.domain.*;
+import lotto.validator.LottoValidator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -27,8 +28,7 @@ public class LottoController {
         Lottos lottos = generateLottos(lottoCount);
 
         Lotto winningNumbers = getWinningLotto();
-
-        SingleLottoNumber bonusNumber = getBonusNumber();
+        SingleLottoNumber bonusNumber = getBonusNumber(winningNumbers);
 
         Map<String, Integer> stringIntegerMap = lottoResultCalculator.calculateResults(lottos.getLottos(), winningNumbers, bonusNumber);
         double profit = lottoResultCalculator.calculateProfit(stringIntegerMap, lottoCount * 1000);
@@ -36,16 +36,18 @@ public class LottoController {
         outputView.printResultStatistics(stringIntegerMap, profit);
     }
 
-    private SingleLottoNumber getBonusNumber() {
+    private SingleLottoNumber getBonusNumber(Lotto winningNumbers) {
+
         boolean isValid = false;
         SingleLottoNumber bonusNumber = null;
 
         while (!isValid) {
-            try{
+            try {
                 outputView.printBonusNumberMessage();
                 bonusNumber = inputView.inputBonusNumber();
+                LottoValidator.isValidBonusNumber(winningNumbers, bonusNumber);
                 isValid = true;
-            }catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }
@@ -86,7 +88,7 @@ public class LottoController {
                 outputView.printPurchaseMessage();
                 purchase = inputView.inputPurchase();
                 isValid = true;
-            }catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }
